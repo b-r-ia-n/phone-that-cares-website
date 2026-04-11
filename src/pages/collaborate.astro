@@ -1,0 +1,251 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StickerWall from '../components/StickerWall.jsx';
+
+interface Person {
+  name: string;
+  url?: string;
+}
+
+const people: Person[] = [
+  { name: '@louisvarge', url: 'https://twitter.com/louisvarge' },
+  { name: 'Jack Styles', url: 'https://godumb.com/' },
+  { name: '@alexkrusz', url: 'https://twitter.com/AlexKrusz' },
+  { name: '@feral_eyes', url: 'https://twitter.com/Feral_Eyes' },
+  { name: '@ascetic_shadow', url: 'https://twitter.com/Ascetic_Shadow' },
+  { name: '@dnsosebee', url: 'https://twitter.com/DNSOSEBEE' },
+  { name: '@bashu_thanks', url: 'https://twitter.com/Bashu_Thanks' },
+  { name: '@joespurpleshirt', url: 'https://twitter.com/joespurpleshirt' },
+  { name: '@vincent_yc_li', url: 'https://twitter.com/Vincent_yc_li' },
+];
+
+const hardware = [
+  {
+    name: 'GoDumb',
+    url: 'https://godumb.com/',
+    note:
+      'Jack Styles\u2019 take on a phone built around a different theory of what hardware is for \u2014 a deliberate, low-friction device for people who want their phone to ask less of them.',
+  },
+  {
+    name: 'Fairphone',
+    url: 'https://www.fairphone.com',
+    note:
+      'Modular, repairable phones built around an ethics-first supply chain. A different theory of what "the right phone" means \u2014 one focused on production rather than attention.',
+  },
+];
+---
+
+<BaseLayout
+  theme="collaborate"
+  activeSlug="collaborate"
+  title="Collaborate — Phone That Cares About You"
+>
+  <article class="collaborate">
+    <header class="intro">
+      <h1>Collaborate</h1>
+      <p class="lede">
+        This is an open project. Below are the questions I'm sitting with, the
+        people I've been thinking with, and the reading that shaped the work.
+        Click a sticker, finish the sentence, hit send.
+      </p>
+    </header>
+
+    <section aria-labelledby="open-questions">
+      <h2 id="open-questions">Open questions</h2>
+      <StickerWall client:load />
+    </section>
+
+    <section aria-labelledby="thinking-with" class="thinking-with">
+      <h2 id="thinking-with">People I've been thinking with</h2>
+      <p class="section-lede">
+        A small thank-you to the people who've been generous with their
+        attention while I've been figuring this out — arguing with the idea,
+        sharpening it, and keeping me company in the questions.
+      </p>
+
+      <p class="name-paragraph">
+        {people.map((p, i) => (
+          <>
+            {p.url ? (
+              <a href={p.url} class="handle">{p.name}</a>
+            ) : (
+              <span class="name">{p.name}</span>
+            )}
+            {i < people.length - 1 && <span class="sep">, </span>}
+          </>
+        ))}<span class="sep">, </span><em class="and-others">…and many others.</em>
+      </p>
+    </section>
+
+    <section aria-labelledby="lineage" class="lineage">
+      <h2 id="lineage">Intellectual lineage</h2>
+      <p class="lineage-paragraph">
+        The shape of this project owes a lot to a handful of recurring
+        sources. Natasha Dow Schüll's <em>Addiction by Design</em> is the
+        clearest account I've read of how environments — slot machines,
+        casinos, and now feeds — get engineered to absorb attention, and
+        David Foster Wallace's <em>E Unibus Pluram</em> names the recursive
+        trap where a medium swallows the very critiques aimed at it. Both
+        sit underneath the diagnostic half of the work.
+      </p>
+      <p class="lineage-paragraph">
+        For the constructive half, I keep returning to QRI's logarithmic
+        scales of wellbeing as a way to think about <em>skills of well-being</em>
+        as something measurable and trainable rather than vibes; to
+        Forethought.org's <a href="https://forethought.org">Design Sketches:
+        Angels on the Shoulder</a> as the closest existing vision of what an
+        AI-powered supportive layer could feel like; to Amber Case's
+        <em>Calm Technology</em> for the periphery as a design surface; and
+        — only half-jokingly — to Marie Kondo, for the idea that the right
+        relationship to your stuff is something you can learn.
+      </p>
+    </section>
+
+    <section aria-labelledby="related" class="related">
+      <h2 id="related">Related hardware</h2>
+      <p class="section-lede">
+        Other people building phones from a different starting premise.
+        This project is one voice in a small but growing conversation.
+      </p>
+
+      <ul class="entry-list">
+        {hardware.map((r) => (
+          <li>
+            <div class="entry-head">
+              {r.url ? (
+                <a href={r.url} class="entry-title">{r.name}</a>
+              ) : (
+                <span class="entry-title">{r.name}</span>
+              )}
+            </div>
+            <p class="entry-note">{r.note}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .collaborate {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .intro {
+    margin-bottom: 2.5rem;
+  }
+
+  /* The collaborate h1 is a single short word that visually reads as
+     sitting "high" — nudging it down so the perceived gap above the
+     title matches the other pages. */
+  .intro h1 {
+    margin-top: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .lede {
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+  }
+
+  section {
+    margin-top: 5rem;
+  }
+
+  section h2 {
+    margin-bottom: 0.75rem;
+  }
+
+  .section-lede {
+    margin-bottom: 2rem;
+  }
+
+  .thinking-with .name-paragraph {
+    line-height: 1.9;
+  }
+
+  .lineage-paragraph {
+    line-height: 1.75;
+    margin: 0 0 1.25rem;
+  }
+
+  .lineage-paragraph a {
+    color: var(--accent);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .lineage-paragraph a:hover {
+    border-color: var(--accent);
+  }
+
+  .name {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .handle {
+    color: var(--accent);
+    font-weight: 500;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .name-note {
+    color: var(--text-secondary);
+  }
+
+  .and-others {
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+
+  .sep {
+    color: var(--text-secondary);
+  }
+
+  .entry-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .entry-list li {
+    border-left: 2px solid var(--border-subtle);
+    padding: 0.25rem 0 0.25rem 1.25rem;
+  }
+
+  .entry-head {
+    margin-bottom: 0.3rem;
+  }
+
+  .entry-title {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  a.entry-title {
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  a.entry-title:hover {
+    border-color: var(--accent);
+  }
+
+  .entry-meta {
+    color: var(--text-secondary);
+  }
+
+  .entry-note {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* Override the global h2/h3 sizes a touch for this page's density */
+  .collaborate h2 {
+    font-size: clamp(1.35rem, 2.8vw, 1.75rem);
+  }
+</style>

@@ -1,0 +1,256 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface TimelinePoint {
+  title: string;
+  date: string;
+  description: string;
+  link?: { url: string; label: string };
+  past: boolean;
+  cascade?: boolean;
+}
+
+const timeline: TimelinePoint[] = [
+  {
+    title: 'The Grayscale Idea',
+    date: 'Spring 2024',
+    description:
+      'A UI intuition: screens that gradually go grayscale the longer you scroll. Speculative design work reveals Android won\u2019t allow it. First hint the ecosystem might not be neutral.',
+    past: true,
+  },
+  {
+    title: 'Survey of Existing Solutions',
+    date: 'Fall 2024',
+    description:
+      'Every self-control app tested \u2014 Freedom, Forest, screen time trackers. None work well. The framing is wrong: they treat users as enemies of themselves rather than people missing better tools.',
+    past: true,
+  },
+  {
+    title: 'Begin Public Brainstorms',
+    date: 'November 2024',
+    description:
+      'Small Google Meets with friends. The idea stops being a private intuition and becomes something other people have heard of.',
+    link: {
+      url: 'https://www.figma.com/board/jh1W4RBRPzpYkJmaHcYXa5/phone-that-cares-about-you?node-id=345-741&t=LkbopG5JtHfkikjS-1',
+      label: 'View the brainstorm board',
+    },
+    past: true,
+  },
+  {
+    title: 'Running Experiments',
+    date: 'Late 2025\u2013present',
+    description:
+      'Progressive confidence builders in the concept: A Chrome extension that applies live visual transformations to social media feeds. Initial Android experiments, pushing on how far we can go with Android-approved interventions or with actually changing the operating system at a deeper level. A physical device you can put a SIM card into, which may not be available for mass purchase, but which consistently and predictably reduces screen time in people who would like that outcome.',
+    past: true,
+  },
+  {
+    title: 'The Purchasable Device',
+    date: 'Near future',
+    description:
+      'A phone that costs more than an iPhone \u2014 justified not by specs but by value. Gives you hours back. Two potential value adds: negative agency (a bouncer, filtering so you see what you want) and positive agency (an assistant, surfacing what\u2019s actually relevant to your life).',
+    past: false,
+  },
+  {
+    title: 'Early Adopters & Evidence',
+    date: 'Future',
+    description:
+      'A small fleet of devices. Real usage data. A/B experiments producing numbers that make the case to someone other than the already-convinced.',
+    past: false,
+  },
+  {
+    title: 'Funding & Team',
+    date: 'Future',
+    description:
+      'The argument lands. A technical co-founder. Institutional backing. The project stops being a solo endeavor.',
+    past: false,
+  },
+  {
+    title: 'The Cascade',
+    date: 'Future',
+    description:
+      'One manufacturer ships with care built in by default \u2014 not as an opt-in wellness app, but structurally, the way encryption is now. The others have to follow or explain why they won\u2019t. The tacit agreement to not try breaks down.',
+    past: false,
+    cascade: true,
+  },
+];
+---
+
+<BaseLayout
+  theme="vision"
+  activeSlug="vision"
+  title="Vision — Phone That Cares About You"
+>
+  <article class="vision-page">
+    <header class="intro">
+      <h1>Vision</h1>
+      <p class="lede" data-nav-fade-trigger>
+        I think it is possible that in retrospect we will see the current OS
+        ecosystem as unstable. That it would only take one manufacturer
+        deciding to really go all in on features that helped reduce addiction
+        in order for the equilibrium of the whole industry to change. We have
+        a Yellowstone without wolves. To bring balance to the ecosystem, we
+        will want hardware with a software layer designed to help people
+        skillfully interface with social media information streams. Here is
+        one potential path from that intuition to a future in which that's
+        already happened.
+      </p>
+    </header>
+
+    <section class="timeline" aria-label="Project timeline">
+      {timeline.map((point) => (
+        <div
+          class:list={[
+            'timeline-point',
+            { past: point.past, future: !point.past, cascade: point.cascade },
+          ]}
+        >
+          <div class="dot-col">
+            <div class="dot" />
+            <div class="line" />
+          </div>
+          <div class="point-content">
+            <span class="point-date">{point.date}</span>
+            <h3 class="point-title">{point.title}</h3>
+            <p class="point-desc">{point.description}</p>
+            {point.link && (
+              <a class="point-link" href={point.link.url} target="_blank" rel="noopener">
+                {point.link.label} <span class="arrow">&rarr;</span>
+              </a>
+            )}
+          </div>
+        </div>
+      ))}
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .vision-page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .intro {
+    margin-bottom: 3rem;
+  }
+
+  .intro h1 {
+    margin-bottom: 1.25rem;
+  }
+
+  .lede {
+    line-height: 1.75;
+  }
+
+  /* ── Vertical timeline ── */
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .timeline-point {
+    display: flex;
+    gap: 1.25rem;
+    transition: opacity 200ms ease;
+  }
+
+  .timeline-point:hover {
+    opacity: 1 !important;
+  }
+
+  .past { opacity: 0.7; }
+  .future { opacity: 0.4; }
+  .future.cascade { opacity: 0.5; }
+
+  .dot-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 13px;
+  }
+
+  .dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+  }
+
+  .future .dot {
+    background: transparent;
+    border: 1.5px solid var(--accent);
+  }
+
+  .cascade .dot {
+    width: 15px;
+    height: 15px;
+    border: 2px solid var(--accent);
+    background: transparent;
+    box-shadow: 0 0 8px rgba(63, 91, 50, 0.25);
+  }
+
+  .line {
+    flex: 1;
+    width: 1px;
+    background: var(--border-subtle);
+    min-height: 1.5rem;
+  }
+
+  .timeline-point:last-child .line {
+    display: none;
+  }
+
+  .point-content {
+    padding-bottom: 2.5rem;
+  }
+
+  .point-date {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+
+  .point-title {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .point-desc {
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .point-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-top: 0.75rem;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 2px;
+    transition: border-color 150ms ease;
+  }
+
+  .point-link:hover {
+    border-color: var(--accent);
+  }
+
+  .point-link:hover .arrow {
+    transform: translateX(2px);
+  }
+
+  .arrow {
+    display: inline-block;
+    transition: transform 200ms ease;
+  }
+</style>

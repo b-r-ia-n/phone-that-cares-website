@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  theme="thinking"
+  activeSlug="thinking"
+  title="Thinking — Phone That Cares About You"
+>
+  <article class="thinking-page">
+    <header class="intro">
+      <h1>Thinking</h1>
+      <p class="lede" data-nav-fade-trigger>
+        Mental models, diagrams, and the conceptual scaffolding behind the
+        project.
+      </p>
+    </header>
+
+    <section class="figure-block">
+      <figure>
+        <img
+          src="/thinking/phone-use-integration.png"
+          alt="A three-panel illustration: compulsive phone use, stepping away to reflect, and arriving at a balanced, integrated relationship with the device."
+          loading="lazy"
+        />
+        <figcaption>
+          The arc this project is trying to support — from compulsive use,
+          through reflection, to integration.
+        </figcaption>
+      </figure>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .thinking-page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .intro {
+    margin-bottom: 4rem;
+  }
+
+  .intro h1 {
+    margin-bottom: 1.25rem;
+  }
+
+  .figure-block {
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 2.25rem;
+  }
+
+  figure {
+    margin: 0;
+  }
+
+  figure img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid var(--border-subtle);
+    display: block;
+  }
+
+  figcaption {
+    margin-top: 1rem;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-style: italic;
+  }
+</style>

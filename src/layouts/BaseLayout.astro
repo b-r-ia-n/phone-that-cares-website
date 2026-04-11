@@ -1,0 +1,42 @@
+---
+import '../styles/themes.css';
+import '../styles/global.css';
+import NavBar from '../components/NavBar.astro';
+import NavBarScript from '../components/NavBarScript.astro';
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+  theme: string;
+  activeSlug: string;
+  title?: string;
+}
+
+const { theme, activeSlug, title = 'Phone That Cares About You' } = Astro.props;
+---
+
+<html lang="en" data-theme={theme}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <ClientRouter />
+  </head>
+  <body data-theme={theme}>
+    <NavBar activeSlug={activeSlug} />
+    <main>
+      <slot />
+    </main>
+    <NavBarScript />
+    <style is:global>
+      main {
+        /* 72px clears the floating nav pill; the clamp() adds the
+           "halfway in between" breathing room so every page has the
+           same generous top space, not just welcome. */
+        padding-top: calc(72px + clamp(1rem, 3.5vw, 2.25rem));
+        padding-bottom: 6rem;
+      }
+    </style>
+  </body>
+</html>

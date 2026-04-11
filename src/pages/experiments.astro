@@ -1,0 +1,206 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Carousel from '../components/Carousel.jsx';
+
+const scrollLabSlides = [
+  {
+    src: '/experiments/scroll-lab-tweet-padding.png',
+    caption: 'Tweet Padding — extra whitespace between posts slows the scroll cadence.',
+  },
+  {
+    src: '/experiments/scroll-lab-greyscale.png',
+    caption: 'Greyscale — desaturating the feed strips out color-driven engagement cues.',
+  },
+  {
+    src: '/experiments/scroll-lab-blur.png',
+    caption: 'Blur — content stays readable on focus but resists peripheral grazing.',
+  },
+  {
+    src: '/experiments/scroll-lab-break-cards.png',
+    caption: 'Break Cards — tweets fragment into broken shapes, making the feed harder to passively absorb.',
+  },
+  {
+    src: '/experiments/scroll-lab-font-cycling.png',
+    caption: 'Font Cycling — each post renders in a different typeface, breaking the visual rhythm.',
+  },
+  {
+    type: 'video',
+    src: '/experiments/scroll-lab-features.mov',
+    poster: '/experiments/scroll-lab-tweet-padding.png',
+    caption: 'See it in motion — a short walk-through of every mode in The Scroll Lab.',
+  },
+];
+---
+
+<BaseLayout
+  theme="experiments"
+  activeSlug="experiments"
+  title="Experiments — Phone That Cares About You"
+>
+  <article class="experiments-page">
+    <header class="intro">
+      <h1>Experiments</h1>
+      <p class="lede" data-nav-fade-trigger>
+        Prototypes for changing how content reaches you. Small interventions
+        that test the question: what would it feel like if the feed pushed
+        back, even a little?
+      </p>
+    </header>
+
+    <section class="experiment" aria-labelledby="scroll-lab">
+      <header class="experiment-head">
+        <p class="experiment-kicker">Experiment 01</p>
+        <h2 id="scroll-lab">The Scroll Lab</h2>
+        <p class="experiment-tagline">
+          A Chrome extension that applies live visual transformations to your
+          social feed.
+        </p>
+      </header>
+
+      <Carousel client:load slides={scrollLabSlides} />
+
+      <div class="experiment-body">
+        <p>
+          The Scroll Lab is a small Chrome extension that lets you toggle
+          experimental visual treatments on top of X / Twitter in real time.
+          Padding, fragmenting, blurring, desaturating, distorting — each mode
+          is a deliberate piece of friction, dropped between you and the feed
+          to see what changes.
+        </p>
+        <p>
+          The point isn't to make the feed unusable. It's to notice what your
+          attention actually does when the usual visual rhythm is interrupted.
+          Most of these tweaks took ten minutes to write. A few of them
+          changed how I scroll for the rest of the day.
+        </p>
+        <p>
+          It also tracks how long you've been on the site and how many posts
+          you've passed — quietly, in the corner of the panel — so you can
+          watch the experiment of the experiment.
+        </p>
+      </div>
+
+      <div class="experiment-cta">
+        <a class="download-button" href="/experiments/scroll-lab.zip" download>
+          Download The Scroll Lab <span class="arrow">↓</span>
+        </a>
+        <p class="install-note">
+          Unzip, then in Chrome go to <code>chrome://extensions</code>, enable
+          <em>Developer mode</em>, click <em>Load unpacked</em>, and select the
+          unzipped folder.
+        </p>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .experiments-page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .intro {
+    margin-bottom: 4rem;
+  }
+
+  .intro h1 {
+    margin-bottom: 1.25rem;
+  }
+
+
+  .experiment {
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 2.25rem;
+  }
+
+  .experiment-head {
+    margin-bottom: 2rem;
+  }
+
+  .experiment-kicker {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+  }
+
+  .experiment h2 {
+    font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+    margin-bottom: 0.6rem;
+    line-height: 1.2;
+  }
+
+  .experiment-tagline {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+
+  .experiment-body {
+    margin-top: 2.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .experiment-body p {
+    line-height: 1.7;
+  }
+
+  .experiment-cta {
+    margin-top: 2.5rem;
+    padding: 1.5rem 1.75rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    background: rgba(43, 43, 34, 0.025);
+  }
+
+  .download-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 2px;
+    transition: border-color 150ms ease, gap 150ms ease;
+  }
+
+  .download-button:hover {
+    border-color: var(--accent);
+  }
+
+  .download-button:hover .arrow {
+    transform: translateY(2px);
+  }
+
+  .arrow {
+    display: inline-block;
+    transition: transform 200ms ease;
+  }
+
+  .install-note {
+    margin-top: 0.9rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .install-note code {
+    font-family: 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.8rem;
+    background: rgba(43, 43, 34, 0.06);
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+
+  .install-note em {
+    font-style: normal;
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+</style>

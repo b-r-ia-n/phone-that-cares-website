@@ -1,0 +1,102 @@
+---
+---
+
+<script>
+  // Scroll-linked nav fade.
+  //
+  // The nav stays fully visible until the *top* of the first body-text
+  // element passes the *bottom* of the nav pill. From that moment, every
+  // pixel of additional scroll removes a fixed amount of opacity (and
+  // adds a small upward translate), reaching fully transparent after
+  // FADE_DISTANCE pixels. Reverse on scroll-up. Pure position-based —
+  // no direction tracking, no fixed-duration transitions.
+  //
+  // The "first body text" is, in priority order:
+  //   1. an element with [data-nav-fade-trigger]
+  //   2. otherwise, the first <p> inside <main>
+
+  const FADE_DISTANCE = 120;     // px of scroll over which the nav fades (~4 lines of body)
+  const RETRACT_PX = 14;         // max upward translate at full fade
+  const FALLBACK_NAV_BOTTOM = 56; // used if we can't measure the nav for some reason
+
+  let scrollHandler: ((e?: Event) => void) | null = null;
+  let resizeHandler: (() => void) | null = null;
+
+  function setupNavFade() {
+    const nav = document.getElementById('navbar') as HTMLElement | null;
+    if (!nav) return;
+
+    // Tear down any prior listeners (Astro view transitions re-run this script).
+    if (scrollHandler) window.removeEventListener('scroll', scrollHandler);
+    if (resizeHandler) window.removeEventListener('resize', resizeHandler);
+
+    let marker: Element | null = null;
+    let navBottomY = FALLBACK_NAV_BOTTOM;
+    let ticking = false;
+
+    function measure() {
+      marker =
+        document.querySelector('[data-nav-fade-trigger]') ||
+        document.querySelector('main p');
+
+      // Viewport Y of the nav's bottom edge, at rest. We use offsetHeight
+      // (which ignores inline transforms) plus the CSS-resolved top so the
+      // measurement isn't disturbed by the script's own translateY output.
+      const navTopCSS = parseFloat(getComputedStyle(nav!).top) || 16;
+      navBottomY = navTopCSS + nav!.offsetHeight;
+    }
+
+    function applyForScroll() {
+      let progress = 0;
+      if (marker) {
+        const markerTop = marker.getBoundingClientRect().top;
+        // gap > 0  → marker still below the nav bottom (fully visible)
+        // gap = 0  → marker top just touching nav bottom (fade about to begin)
+        // gap < 0  → marker has scrolled above the nav bottom (fading)
+        const gap = markerTop - navBottomY;
+        if (gap < 0) {
+          progress = Math.min(1, -gap / FADE_DISTANCE);
+        }
+      }
+      const opacity = 1 - progress;
+      const ty = -RETRACT_PX * progress;
+      nav!.style.opacity = String(opacity);
+      nav!.style.transform = `translateX(-50%) translateY(${ty}px)`;
+      nav!.style.pointerEvents = opacity < 0.05 ? 'none' : '';
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(applyForScroll);
+        ticking = true;
+      }
+    }
+
+    function onResize() {
+      measure();
+      applyForScroll();
+    }
+
+    scrollHandler = onScroll;
+    resizeHandler = onResize;
+
+    // Initial measure + paint, then re-measure once fonts settle so
+    // the marker position stays anchored to the right element after
+    // any font-driven layout shift.
+    measure();
+    applyForScroll();
+    if ((document as any).fonts && (document as any).fonts.ready) {
+      (document as any).fonts.ready.then(() => {
+        measure();
+        applyForScroll();
+      });
+    }
+
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+    window.addEventListener('resize', resizeHandler);
+  }
+
+  setupNavFade();
+  document.addEventListener('astro:page-load', setupNavFade);
+</script>

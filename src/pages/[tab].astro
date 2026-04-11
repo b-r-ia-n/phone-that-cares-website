@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { tabs, getTab } from '../config/tabs';
+
+export async function getStaticPaths() {
+  // welcome handled by index.astro; collaborate, writing, experiments, vision have dedicated pages
+  const EXCLUDED = new Set(['welcome', 'collaborate', 'writing', 'experiments', 'vision', 'thinking']);
+  return tabs
+    .filter(t => !EXCLUDED.has(t.slug))
+    .map(t => ({ params: { tab: t.slug } }));
+}
+
+const { tab: slug } = Astro.params;
+const tab = getTab(slug!);
+
+if (!tab) {
+  throw new Error(`Unknown tab: ${slug}`);
+}
+
+const descriptions: Record<string, string> = {
+  'thinking':
+    'Mental models, diagrams, and the conceptual scaffolding behind the project.',
+};
+
+const description = descriptions[tab.slug] ?? '';
+---
+
+<BaseLayout
+  theme={tab.theme}
+  activeSlug={tab.slug}
+  title={`${tab.label} — Phone That Cares About You`}
+>
+  <article class="tab-page">
+    <h1>{tab.label}</h1>
+    <p class="lede">{description}</p>
+    <div class="coming-soon">Content coming soon</div>
+  </article>
+</BaseLayout>
+
+<style>
+  .tab-page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .tab-page h1 {
+    margin-bottom: 1.25rem;
+  }
+
+  .lede {
+    margin-bottom: 4rem;
+  }
+
+  .coming-soon {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    padding: 3rem 0;
+    border-top: 1px solid var(--border-subtle);
+  }
+</style>

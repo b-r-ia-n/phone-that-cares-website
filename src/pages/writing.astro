@@ -1,0 +1,215 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface Essay {
+  title: string;
+  subtitle: string;
+  date: string;
+  url: string;
+  excerpt: string;
+}
+
+const essays: Essay[] = [
+  {
+    title: 'Why Don\'t Google, Apple, Samsung Want to Build Features That Help Reduce Scrolling Time?',
+    subtitle: 'Like, obviously because they make money when you don\'t. But how?',
+    date: 'April 10, 2026',
+    url: 'https://briiiian.substack.com/p/why-dont-google-apple-samsung-want',
+    excerpt:
+      'Corporate leadership faces pressure to grow companies or risk replacement by shareholders, yet this growth imperative creates tension with building products that benefit user mental health.',
+  },
+  {
+    title: 'What would it mean for a phone to care about you?',
+    subtitle: 'From h8r to superhuman guardian angel',
+    date: 'March 19, 2026',
+    url: 'https://briiiian.substack.com/p/what-would-it-mean-for-a-phone-to',
+    excerpt:
+      'I want to give you a felt sense of possibility. I feel like current smartphones all look and behave about the same in the big picture, and I want to gesture at some unexplored possibility space that makes this picture clear.',
+  },
+  {
+    title: 'Project Brief: A Phone That Cares About You',
+    subtitle:
+      'Lightphone Failed Because Restriction On One Level Recreates Internal Conflict You\u2019re Trying To Resolve On Another',
+    date: 'October 7, 2025',
+    url: 'https://briiiian.substack.com/p/phone-addiction-is-a-technological',
+    excerpt:
+      'Phones are not even trying to help you live a balanced life. Once you open an app or website, phones and computers become passive rebroadcasters of whatever a social media company feels like sending. They do not care if you watch for 5 minutes or 50 hours.',
+  },
+];
+
+const SUBSTACK_PROFILE = 'https://substack.com/@briiiian';
+---
+
+<BaseLayout
+  theme="writing"
+  activeSlug="writing"
+  title="Writing — Phone That Cares About You"
+>
+  <article class="writing-page">
+    <header class="intro">
+      <h1>Writing</h1>
+      <p class="lede">
+        Essays on attention, integration, and what phones could become. Published on
+        <a href={SUBSTACK_PROFILE}>Safety First</a> on Substack.
+      </p>
+    </header>
+
+    <ul class="essay-list">
+      {essays.map((essay) => (
+        <li class="essay-card">
+          <div class="essay-meta">
+            <time>{essay.date}</time>
+            <span class="essay-source">Substack</span>
+          </div>
+          <h2 class="essay-title">
+            <a href={essay.url} target="_blank" rel="noopener">
+              {essay.title}
+            </a>
+          </h2>
+          <p class="essay-subtitle">{essay.subtitle}</p>
+          <blockquote class="essay-excerpt">{essay.excerpt}</blockquote>
+          <a class="essay-link" href={essay.url} target="_blank" rel="noopener">
+            Read the full essay <span class="arrow">→</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <footer class="writing-footer">
+      <a href={SUBSTACK_PROFILE} target="_blank" rel="noopener">
+        More writing on Substack <span class="arrow">→</span>
+      </a>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .writing-page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .intro {
+    margin-bottom: 4rem;
+  }
+
+  .intro h1 {
+    margin-bottom: 1.25rem;
+  }
+
+  .lede,
+  .essay-subtitle,
+  .essay-excerpt {
+    max-width: none;
+  }
+
+  .essay-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4.5rem;
+  }
+
+  .essay-card {
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 2rem;
+  }
+
+  .essay-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .essay-meta time {
+    font-feature-settings: 'tnum';
+  }
+
+  .essay-source::before {
+    content: '·';
+    margin-right: 0.75rem;
+  }
+
+  .essay-title {
+    font-size: clamp(1.4rem, 3.2vw, 2rem);
+    line-height: 1.2;
+    margin-bottom: 0.6rem;
+  }
+
+  .essay-title a {
+    color: var(--text-primary);
+    border-bottom: none;
+    transition: color 150ms ease;
+  }
+
+  .essay-title a:hover {
+    color: var(--accent);
+  }
+
+  .essay-subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+
+  .essay-excerpt {
+    border-left: 2px solid var(--border-subtle);
+    padding: 0.25rem 0 0.25rem 1.25rem;
+    margin: 0 0 1.75rem;
+    font-size: 1rem;
+    color: var(--text-primary);
+    line-height: 1.75;
+  }
+
+  .essay-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 2px;
+    transition: border-color 150ms ease, gap 150ms ease;
+  }
+
+  .essay-link:hover {
+    border-color: var(--accent);
+  }
+
+  .essay-link:hover .arrow {
+    transform: translateX(2px);
+  }
+
+  .arrow {
+    display: inline-block;
+    transition: transform 200ms ease;
+  }
+
+  .writing-footer {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-subtle);
+    font-size: 0.95rem;
+  }
+
+  .writing-footer a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 500;
+  }
+
+  .writing-footer a:hover .arrow {
+    transform: translateX(2px);
+  }
+</style>

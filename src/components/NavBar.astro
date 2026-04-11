@@ -1,0 +1,110 @@
+---
+import { tabs } from '../config/tabs';
+
+interface Props {
+  activeSlug: string;
+}
+
+const { activeSlug } = Astro.props;
+
+function hrefFor(slug: string) {
+  return slug === 'welcome' ? '/' : `/${slug}`;
+}
+---
+
+<nav class="navbar" id="navbar" aria-label="Primary">
+  <ul class="navbar-list">
+    {tabs.map(tab => (
+      <li>
+        <a
+          href={hrefFor(tab.slug)}
+          class:list={['navbar-link', { active: tab.slug === activeSlug }]}
+          aria-current={tab.slug === activeSlug ? 'page' : undefined}
+        >
+          {tab.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .navbar {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    background-color: var(--nav-bg);
+    border: 0.5px solid var(--border-subtle);
+    border-radius: 999px;
+    padding: 10px 22px;
+    max-width: calc(100vw - 32px);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Color transitions are duration-based (theme swap).
+       Opacity / transform are scroll-linked via inline style — do NOT
+       transition them here, or scroll updates will smear. */
+    transition:
+      background-color 350ms ease,
+      border-color 350ms ease;
+    will-change: transform, opacity;
+  }
+
+  .navbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .navbar-list {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+  }
+
+  .navbar-link {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--accent-muted);
+    border-bottom: none;
+    letter-spacing: 0.01em;
+    transition: color 150ms ease, opacity 150ms ease;
+  }
+
+  .navbar-link:hover {
+    color: var(--accent);
+    opacity: 0.8;
+    border-bottom: none;
+  }
+
+  .navbar-link.active {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  @media (max-width: 640px) {
+    .navbar {
+      padding: 9px 18px;
+    }
+    .navbar-list {
+      gap: 14px;
+    }
+    .navbar-link {
+      font-size: 13px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .navbar-list {
+      gap: 12px;
+    }
+    .navbar-link {
+      font-size: 12px;
+    }
+  }
+</style>

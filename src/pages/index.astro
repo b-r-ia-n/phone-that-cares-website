@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { tabs } from '../config/tabs';
+
+const teaserDescriptions: Record<string, string> = {
+  'vision':
+    'Where this could go — a vision for phones that ship with care built in by default.',
+  'experiments':
+    'The Scroll Lab and other prototypes for changing how content reaches you.',
+  'thinking':
+    'Mental models, diagrams, and the conceptual scaffolding behind the project.',
+  'writing':
+    'Essays on attention, integration, and what phones could become.',
+  'collaborate':
+    'Open questions, community, and intellectual lineage.',
+};
+
+const otherTabs = tabs.filter(t => t.slug !== 'welcome');
+---
+
+<BaseLayout theme="welcome" activeSlug="welcome" title="Phone That Cares About You">
+  <article class="welcome">
+    <h1>A Phone That Cares About You</h1>
+
+    {/* The data-nav-fade-trigger attribute marks the first body text. The nav
+        stays fully visible until this element's *top* meets the nav pill's
+        bottom edge, then fades over ~120px of scroll. See NavBarScript.astro. */}
+    <p class="lede" data-nav-fade-trigger>
+      There's an untapped opportunity to create technology that drops the
+      pretense of neutrality and actively helps users navigate engaging with
+      digital information streams skillfully. This is a speculative project
+      exploring what that looks like.
+    </p>
+
+
+
+    <section class="teasers" aria-label="Other sections">
+      {otherTabs.map(tab => (
+        <div class="teaser">
+          <h3><a href={`/${tab.slug}`}>{tab.label}</a></h3>
+          <p>{teaserDescriptions[tab.slug]}</p>
+        </div>
+      ))}
+    </section>
+
+    <footer class="contact">
+      <p>
+        Interested? Get in touch:
+        <a href="mailto:hello@example.com">hello@example.com</a>
+      </p>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .welcome {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* The welcome h1 is a long, descender-heavy phrase that visually
+     reads as sitting "low" — pulling it up slightly compensates so the
+     perceived gap above the title matches the other pages. */
+  .welcome h1 {
+    margin-top: -0.6rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .lede {
+    margin-bottom: 4rem;
+  }
+
+  .welcome p {
+    max-width: none;
+  }
+
+  .teasers {
+    margin-top: 2rem;
+  }
+
+  .teaser {
+    margin-bottom: 3rem;
+  }
+
+  .teaser h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  .teaser h3 a {
+    border-bottom: none;
+  }
+
+  .teaser h3 a:hover {
+    border-bottom: 1px solid var(--accent);
+  }
+
+  .contact {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .contact p {
+    font-size: 0.95rem;
+  }
+</style>

@@ -1,0 +1,69 @@
+:root {
+  --bg: #F2EFE7;
+  --accent: #2B2B22;
+  --accent-muted: rgba(43, 43, 34, 0.45);
+  --border-subtle: rgba(43, 43, 34, 0.15);
+  --text-primary: #2B2B22;
+  --text-secondary: rgba(43, 43, 34, 0.7);
+  --nav-bg: #F2EFE7;
+}
+
+[data-theme="welcome"] {
+  --bg: #F2EFE7;
+  --accent: #2B2B22;
+  --accent-muted: rgba(43, 43, 34, 0.45);
+  --border-subtle: rgba(43, 43, 34, 0.15);
+  --text-primary: #2B2B22;
+  --text-secondary: rgba(43, 43, 34, 0.7);
+  --nav-bg: #F2EFE7;
+}
+
+[data-theme="vision"] {
+  --bg: #DEE6D8;
+  --accent: #3F5B32;
+  --accent-muted: rgba(63, 91, 50, 0.45);
+  --border-subtle: rgba(63, 91, 50, 0.15);
+  --text-primary: #2B3B22;
+  --text-secondary: rgba(43, 59, 34, 0.75);
+  --nav-bg: #DEE6D8;
+}
+
+[data-theme="experiments"] {
+  --bg: #D6E2E0;
+  --accent: #2B5B52;
+  --accent-muted: rgba(43, 91, 82, 0.45);
+  --border-subtle: rgba(43, 91, 82, 0.15);
+  --text-primary: #1F3B35;
+  --text-secondary: rgba(31, 59, 53, 0.75);
+  --nav-bg: #D6E2E0;
+}
+
+[data-theme="thinking"] {
+  --bg: #EBE2D0;
+  --accent: #7B5A1F;
+  --accent-muted: rgba(123, 90, 31, 0.45);
+  --border-subtle: rgba(123, 90, 31, 0.15);
+  --text-primary: #3B2F15;
+  --text-secondary: rgba(59, 47, 21, 0.75);
+  --nav-bg: #EBE2D0;
+}
+
+[data-theme="writing"] {
+  --bg: #EDDED0;
+  --accent: #8B4A2B;
+  --accent-muted: rgba(139, 74, 43, 0.45);
+  --border-subtle: rgba(139, 74, 43, 0.15);
+  --text-primary: #3B1F12;
+  --text-secondary: rgba(59, 31, 18, 0.75);
+  --nav-bg: #EDDED0;
+}
+
+[data-theme="collaborate"] {
+  --bg: #DCDFE0;
+  --accent: #3B4A52;
+  --accent-muted: rgba(59, 74, 82, 0.45);
+  --border-subtle: rgba(59, 74, 82, 0.15);
+  --text-primary: #2B3B45;
+  --text-secondary: rgba(59, 74, 82, 0.7);
+  --nav-bg: #DCDFE0;
+}
