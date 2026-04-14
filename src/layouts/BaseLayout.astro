@@ -3,6 +3,7 @@ import '../styles/themes.css';
 import '../styles/global.css';
 import NavBar from '../components/NavBar.astro';
 import NavBarScript from '../components/NavBarScript.astro';
+import ScrollLab from '../components/ScrollLab.jsx';
 import { ClientRouter } from 'astro:transitions';
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const { theme, activeSlug, title = 'Phone That Cares About You' } = Astro.props;
+const showScrollLab = activeSlug !== 'welcome';
 ---
 
 <html lang="en" data-theme={theme}>
@@ -28,14 +30,22 @@ const { theme, activeSlug, title = 'Phone That Cares About You' } = Astro.props;
     <main>
       <slot />
     </main>
+    {showScrollLab && <ScrollLab client:load />}
     <NavBarScript />
     <style is:global>
       main {
-        /* 72px clears the floating nav pill; the clamp() adds the
-           "halfway in between" breathing room so every page has the
-           same generous top space, not just welcome. */
-        padding-top: calc(72px + clamp(1rem, 3.5vw, 2.25rem));
+        padding-top: clamp(2rem, 5vw, 4rem);
         padding-bottom: 6rem;
+        /* On desktop, offset for the left nav */
+        margin-left: 140px;
+      }
+
+      @media (max-width: 960px) {
+        main {
+          margin-left: 0;
+          /* On mobile, clear the top nav bar */
+          padding-top: calc(52px + clamp(1rem, 3.5vw, 2.25rem));
+        }
       }
     </style>
   </body>

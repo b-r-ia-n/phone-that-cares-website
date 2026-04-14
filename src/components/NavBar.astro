@@ -31,39 +31,26 @@ function hrefFor(slug: string) {
 <style>
   .navbar {
     position: fixed;
-    top: 16px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 0;
+    left: 0;
     z-index: 100;
-    background-color: var(--nav-bg);
-    border: 0.5px solid var(--border-subtle);
-    border-radius: 999px;
-    padding: 10px 22px;
-    max-width: calc(100vw - 32px);
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    /* Color transitions are duration-based (theme swap).
-       Opacity / transform are scroll-linked via inline style — do NOT
-       transition them here, or scroll updates will smear. */
+    padding: 24px 28px;
+    height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    padding-top: clamp(2rem, 5vw, 4rem);
     transition:
       background-color 350ms ease,
       border-color 350ms ease;
-    will-change: transform, opacity;
-  }
-
-  .navbar::-webkit-scrollbar {
-    display: none;
   }
 
   .navbar-list {
     display: flex;
-    align-items: center;
-    gap: 24px;
+    flex-direction: column;
+    gap: 12px;
     list-style: none;
     margin: 0;
     padding: 0;
-    white-space: nowrap;
   }
 
   .navbar-link {
@@ -74,6 +61,7 @@ function hrefFor(slug: string) {
     border-bottom: none;
     letter-spacing: 0.01em;
     transition: color 150ms ease, opacity 150ms ease;
+    white-space: nowrap;
   }
 
   .navbar-link:hover {
@@ -87,15 +75,32 @@ function hrefFor(slug: string) {
     font-weight: 500;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 960px) {
     .navbar {
-      padding: 9px 18px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: auto;
+      padding: 12px 24px;
+      padding-top: 12px;
+      background-color: var(--nav-bg);
+      border-bottom: 0.5px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
     }
+
     .navbar-list {
-      gap: 14px;
+      flex-direction: row;
+      gap: 16px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      white-space: nowrap;
     }
-    .navbar-link {
-      font-size: 13px;
+
+    .navbar-list::-webkit-scrollbar {
+      display: none;
     }
   }
 

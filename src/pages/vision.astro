@@ -7,15 +7,16 @@ interface TimelinePoint {
   description: string;
   link?: { url: string; label: string };
   past: boolean;
+  inProgress?: boolean;
   cascade?: boolean;
 }
 
 const timeline: TimelinePoint[] = [
   {
-    title: 'The Grayscale Idea',
+    title: 'First UI Idea',
     date: 'Spring 2024',
     description:
-      'A UI intuition: screens that gradually go grayscale the longer you scroll. Speculative design work reveals Android won\u2019t allow it. First hint the ecosystem might not be neutral.',
+      'An initial UI intuition: grayscale screens are boring, but actually make the internet less beautiful. Have the idea to implement an appearance which gradually increases grayscale as you use your phone for longer. Initial attempts reveal that Android won\u2019t allow it.',
     past: true,
   },
   {
@@ -32,16 +33,24 @@ const timeline: TimelinePoint[] = [
       'Small Google Meets with friends. The idea stops being a private intuition and becomes something other people have heard of.',
     link: {
       url: 'https://www.figma.com/board/jh1W4RBRPzpYkJmaHcYXa5/phone-that-cares-about-you?node-id=345-741&t=LkbopG5JtHfkikjS-1',
-      label: 'View the brainstorm board',
+      label: 'View and contribute to the brainstorm board',
     },
     past: true,
   },
   {
-    title: 'Running Experiments',
-    date: 'Late 2025\u2013present',
+    title: 'Initial Experiments',
+    date: 'Late 2025',
     description:
-      'Progressive confidence builders in the concept: A Chrome extension that applies live visual transformations to social media feeds. Initial Android experiments, pushing on how far we can go with Android-approved interventions or with actually changing the operating system at a deeper level. A physical device you can put a SIM card into, which may not be available for mass purchase, but which consistently and predictably reduces screen time in people who would like that outcome.',
+      'A heavy 3D-printed phone case. A Chrome extension that applies live visual transformations to social media feeds.',
     past: true,
+  },
+  {
+    title: 'Android OS Experiments',
+    date: 'Spring 2026',
+    description:
+      'Initial Android OS experiments, pushing on how far we can go with Android-approved interventions or with actually changing the operating system at a deeper level. A physical device you can put a SIM card into, which may not be available for mass purchase, but which consistently and predictably reduces screen time in people who would like that outcome.',
+    past: true,
+    inProgress: true,
   },
   {
     title: 'The Purchasable Device',
@@ -89,9 +98,10 @@ const timeline: TimelinePoint[] = [
         deciding to really go all in on features that helped reduce addiction
         in order for the equilibrium of the whole industry to change. We have
         a Yellowstone without wolves. To bring balance to the ecosystem, we
-        will want hardware with a software layer designed to help people
-        skillfully interface with social media information streams. Here is
-        one potential path from that intuition to a future in which that's
+        will want someone in the social media creation and delivery pipeline
+        who is actively looking out for users, primarily trying to help
+        people skillfully interface with information streams. Here is one
+        potential path from that intuition to a future in which that's
         already happened.
       </p>
     </header>
@@ -101,7 +111,7 @@ const timeline: TimelinePoint[] = [
         <div
           class:list={[
             'timeline-point',
-            { past: point.past, future: !point.past, cascade: point.cascade },
+            { past: point.past, future: !point.past, 'in-progress': point.inProgress, cascade: point.cascade },
           ]}
         >
           <div class="dot-col">
@@ -133,10 +143,6 @@ const timeline: TimelinePoint[] = [
 
   .intro {
     margin-bottom: 3rem;
-  }
-
-  .intro h1 {
-    margin-bottom: 1.25rem;
   }
 
   .lede {
@@ -183,6 +189,17 @@ const timeline: TimelinePoint[] = [
 
   .future .dot {
     background: transparent;
+    border: 1.5px solid var(--accent);
+  }
+
+  .in-progress .dot {
+    background: linear-gradient(
+      to right,
+      var(--accent) 0%,
+      var(--accent) 50%,
+      transparent 50%,
+      transparent 100%
+    );
     border: 1.5px solid var(--accent);
   }
 

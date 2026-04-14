@@ -26,3 +26,4 @@ MOVs/
 
 # jetbrains setting folder
 .idea/
+.vercel

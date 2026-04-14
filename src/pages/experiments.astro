@@ -2,6 +2,41 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Carousel from '../components/Carousel.jsx';
 
+const phoneOsSlides = [
+  {
+    src: '/phone-os/PTC1.png',
+    caption: 'Lock Screen — a quiet radial control, with just the essentials at the edges.',
+  },
+  {
+    src: '/phone-os/PTC5.png',
+    caption: 'Home — the apps you actually use, nothing pretending to be a dashboard.',
+  },
+  {
+    src: '/phone-os/PTC3.png',
+    caption: 'Connect — one list for everyone, across every messaging platform.',
+  },
+  {
+    src: '/phone-os/PTC3b.png',
+    caption: 'Think Out Loud — a private space to work through what you want to say.',
+  },
+  {
+    src: '/phone-os/PTC3c.png',
+    caption: 'The Book — notes your phone keeps about the people you care about.',
+  },
+  {
+    src: '/phone-os/PTC4.png',
+    caption: 'Ask — a single prompt that pulls from what the phone already knows about your day.',
+  },
+  {
+    src: '/phone-os/PTC2.png',
+    caption: 'Discover — a feed that admits it is a feed, and lets you reshape it.',
+  },
+  {
+    src: '/phone-os/PTC2b.png',
+    caption: 'Scroll Settings — turn the friction on, pick the experiment you want today.',
+  },
+];
+
 const scrollLabSlides = [
   {
     src: '/experiments/scroll-lab-tweet-padding.png',
@@ -88,6 +123,53 @@ const scrollLabSlides = [
           Unzip, then in Chrome go to <code>chrome://extensions</code>, enable
           <em>Developer mode</em>, click <em>Load unpacked</em>, and select the
           unzipped folder.
+        </p>
+      </div>
+    </section>
+
+    <section class="experiment" aria-labelledby="phone-os">
+      <header class="experiment-head">
+        <p class="experiment-kicker">Experiment 02</p>
+        <h2 id="phone-os">A Phone That Cares</h2>
+        <p class="experiment-tagline">
+          A clickable mock-up of a phone OS that nudges toward presence,
+          reflection, and the people you actually care about.
+        </p>
+      </header>
+
+      <Carousel client:load slides={phoneOsSlides} />
+
+      <div class="experiment-body">
+        <p>
+          This is a design prototype — a walk-through of what a phone could
+          feel like if its defaults were tuned for attention, relationships,
+          and a little bit of friction. Not a real OS. A sketch made clickable,
+          so the ideas can be argued with instead of just described.
+        </p>
+        <p>
+          The home screen stays boring on purpose. The Connect page collapses
+          every messaging platform into one human list. Every person has a
+          Book — a small repository of notes the phone keeps for you: how you
+          met, what they like, who matters to them. Before you text someone,
+          you can Think Out Loud first, privately, with just the phone.
+        </p>
+        <p>
+          The Ask screen starts from what the phone already knows about your
+          day. The Discover feed tells you it's a feed, and lets you choose
+          the friction you want — grayscale, padding, blur, whatever pulls
+          you out of the scroll. The whole thing is a single question made
+          tangible: what would it feel like if the device on your nightstand
+          were on your side?
+        </p>
+      </div>
+
+      <div class="experiment-cta">
+        <a class="download-button" href="/os-mock/" target="_blank" rel="noopener">
+          Open the live mock-up <span class="arrow">→</span>
+        </a>
+        <p class="install-note">
+          Opens in a new tab. Click around — almost every screen is wired up.
+          Designed for a phone frame; works best on desktop.
         </p>
       </div>
     </section>
