@@ -1,0 +1,334 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const BOT_USERNAME = '@argostherobot';
+const REMIX_LINK = 'https://www.val.town/x/brian1/Argos';
+---
+
+<BaseLayout
+  theme="experiments"
+  activeSlug="experiments"
+  title="Argos — Phone That Cares About You"
+  showComments={false}
+>
+  <article class="telegram-bot-page">
+    <header class="intro">
+      <p class="kicker">
+        <a href="/experiments">← Experiments</a> · Experiment 03
+      </p>
+      <h1>Argos</h1>
+      <p class="lede">
+        A small companion bot for Telegram. You talk to it; it remembers;
+        it gets better at being yours over time. Influenced by
+        <a href="https://tasshin.com" rel="noopener" target="_blank">Tasshin Fogleman</a>'s
+        mentor mockup.
+      </p>
+
+      <figure class="hero">
+        <img
+          src="/experiments/telegram-bot.jpg"
+          alt="Argos — a Telegram companion bot"
+        />
+      </figure>
+    </header>
+
+    <section aria-labelledby="what-it-does">
+      <h2 id="what-it-does">What it does</h2>
+      <ul class="feature-list">
+        <li><strong>Text + voice + photos.</strong> Talk to it however feels easiest. Voice notes get transcribed; photos get looked at.</li>
+        <li><strong>Memory.</strong> Tell it what to remember (a name, a preference, a thing about you) and it'll carry that forward.</li>
+        <li><strong>Reminders.</strong> "Ping me at 6 about the thing." It will.</li>
+        <li><strong>Web search.</strong> It can look things up when the answer isn't in its head.</li>
+        <li><strong>Optional morning check-ins.</strong> A short message in the morning if you want one — off by default.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="hosted">
+      <h2 id="hosted">Try the hosted version</h2>
+      <p>
+        Easiest path. Open Telegram, find <code>{BOT_USERNAME}</code>, send
+        anything. It'll reply.
+      </p>
+
+      <div class="cta-card">
+        <a class="download-button" href={`https://t.me/${BOT_USERNAME.replace('@','')}`} target="_blank" rel="noopener">
+          Open {BOT_USERNAME} in Telegram <span class="arrow">→</span>
+        </a>
+        <p class="install-note">
+          <strong>On privacy:</strong> messages flow through my OpenAI
+          account, not yours — that's why you don't need a key. Tradeoff:
+          I can technically see what you send. I won't snoop, but I could,
+          so know that. If you'd rather own the whole pipeline, the
+          self-host path is right below.
+        </p>
+      </div>
+    </section>
+
+    <section aria-labelledby="self-host">
+      <h2 id="self-host">Self-host your own copy</h2>
+      <p>
+        About thirty minutes, no servers to babysit. Your data lives in
+        your account, your bot listens to your token, and the model calls
+        run through your own keys. Walk through the steps in order.
+      </p>
+
+      <ol class="journey">
+        <li>
+          <span class="step-num">01</span>
+          <div class="step-body">
+            <p class="step-title">Sign up for Val.town</p>
+            <p>Val.town is where the bot's brain runs. Free account, takes 30 seconds. <a href="https://val.town" target="_blank" rel="noopener">val.town</a> → sign in with Google or GitHub.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">02</span>
+          <div class="step-body">
+            <p class="step-title">Remix the bot</p>
+            <p>Once you're signed in, hit the button below. It copies the bot into your account.</p>
+            <p><a class="download-button" href={REMIX_LINK} target="_blank" rel="noopener">Remix the bot <span class="arrow">→</span></a></p>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">03</span>
+          <div class="step-body">
+            <p class="step-title">Open your new val's URL</p>
+            <p>After remixing, Val.town drops you into your new copy. Click <code>main.ts</code> in the sidebar, hit <em>Run</em>, and a public URL appears at the top. Open that URL in a new tab — the rest of the steps live there.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">04</span>
+          <div class="step-body">
+            <p class="step-title">Make a Telegram bot</p>
+            <p>Open <a href="https://t.me/BotFather" target="_blank" rel="noopener">@BotFather</a> in Telegram, send <code>/newbot</code>, follow the prompts. It'll hand you a token. Copy it.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">05</span>
+          <div class="step-body">
+            <p class="step-title">Paste the token</p>
+            <p>On your val's setup page (the tab from step 3), there's a form. Paste the token, click <em>set up bot</em>.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">06</span>
+          <div class="step-body">
+            <p class="step-title">Message your bot</p>
+            <p>Open Telegram, find your new bot, send anything. It'll lock to your chat and reply. Text or voice both work.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">07</span>
+          <div class="step-body">
+            <p class="step-title">Use it</p>
+            <p>That's the whole thing. Talk to it. It remembers what you ask it to remember.</p>
+            <p>Commands: <code>/help</code> · <code>/morning</code> · <code>/evening</code> · <code>/connect &lt;name&gt;</code> · <code>/memory</code> · <code>/settings</code> · <code>/forget</code> · <code>/reset</code></p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="credit" aria-labelledby="credit">
+      <h2 id="credit">Credit</h2>
+      <p>
+        Based on patterns from
+        <a href="https://github.com/tasshin/mentor-mock" target="_blank" rel="noopener">Tasshin Fogleman's mentor-mock</a>
+        (MIT). The conceptual lineage — a bot that's a companion rather
+        than a tool, that remembers, that's quietly there — is his. See
+        also <a href="https://tasshin.com" target="_blank" rel="noopener">tasshin.com</a>.
+      </p>
+    </section>
+
+  </article>
+</BaseLayout>
+
+<style>
+  .telegram-bot-page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .intro {
+    margin-bottom: 3.5rem;
+  }
+
+  .kicker {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .kicker a {
+    color: inherit;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 1px;
+  }
+
+  .intro h1 {
+    margin-bottom: 1.25rem;
+  }
+
+  .lede {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .hero {
+    margin: 0;
+  }
+
+  .hero img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid var(--border-subtle);
+  }
+
+  section {
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 2.25rem;
+    margin-top: 2.5rem;
+  }
+
+  section h2 {
+    font-size: clamp(1.25rem, 2.6vw, 1.6rem);
+    margin-bottom: 1.25rem;
+    line-height: 1.25;
+  }
+
+  section p {
+    line-height: 1.7;
+    margin: 1rem 0;
+  }
+
+  .feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .feature-list li {
+    line-height: 1.6;
+    padding-left: 1.1rem;
+    position: relative;
+  }
+
+  .feature-list li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    top: -0.05em;
+    color: var(--text-secondary);
+    font-weight: 700;
+  }
+
+  code {
+    font-family: 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.85em;
+    background: rgba(43, 43, 34, 0.06);
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+
+  em {
+    font-style: normal;
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .cta-card {
+    margin-top: 1.5rem;
+    padding: 1.5rem 1.75rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    background: rgba(43, 43, 34, 0.025);
+  }
+
+  .download-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 2px;
+    transition: border-color 150ms ease, gap 150ms ease;
+  }
+
+  .download-button:hover {
+    border-color: var(--accent);
+  }
+
+  .download-button:hover .arrow {
+    transform: translateX(2px);
+  }
+
+  .arrow {
+    display: inline-block;
+    transition: transform 200ms ease;
+  }
+
+  .install-note {
+    margin-top: 0.9rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  .install-note strong {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .journey {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+
+  .journey li {
+    display: grid;
+    grid-template-columns: 2.4rem 1fr;
+    gap: 0.5rem;
+    align-items: baseline;
+  }
+
+  .journey .step-num {
+    font-family: 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+    padding-top: 0.15em;
+  }
+
+  .journey .step-title {
+    font-weight: 500;
+    margin: 0 0 0.45rem;
+    font-size: 1.02rem;
+  }
+
+  .journey .step-body p {
+    margin: 0.5rem 0 0;
+    line-height: 1.65;
+  }
+
+  .journey .step-body p:first-child {
+    margin-top: 0;
+  }
+
+  .credit p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+</style>
